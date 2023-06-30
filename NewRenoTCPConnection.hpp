@@ -1,7 +1,7 @@
-class TCPConnection
+class NewRenoTCPConnection
 {
 public:
-    TCPConnection(int init_cwnd, int init_ssthresh);
+    NewRenoTCPConnection(int init_cwnd, int init_ssthresh);
     int sendData();
     int onPacketLoss();
     int onRTTUpdate(int new_rtt);
@@ -13,6 +13,6 @@ private:
     int cwnd;
     int ssthresh;
     int rtt;
-    bool inSlowStart;
-    bool inFastRecovery;
+    bool fastRecoveryMode;
+    int duplicateAcks;
 };

@@ -1,0 +1,3 @@
+#define SLOW_START 0
+#define CONGESTION_AVOIDANCE 1
+#define FAST_RECOVERY 2
