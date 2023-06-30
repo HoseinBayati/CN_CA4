@@ -1,8 +1,6 @@
 #include "TCPConnection.hpp"
-#include <stdio.h>
-#include <iostream>
 
-using namespace std;
+#include <iostream>
 
 int main()
 {
@@ -18,6 +16,8 @@ int main()
     tcpConnection1.onPacketLoss();
     tcpConnection2.onPacketLoss();
 
-    cout << "TCPConnection1: cwnd = " << tcpConnection1.getCwnd() << ", ssthresh = " << tcpConnection1.getSsthresh() << endl;
-    cout << "TCPConnection1: cwnd = " << tcpConnection1.getCwnd() << ", ssthresh = " << tcpConnection1.getSsthresh() << endl;
+    std::cout << std::endl << std::endl;
+
+    std::cout << "TCPConnection1: cwnd = " << tcpConnection1.getCwnd() << ", ssthresh = " << tcpConnection1.getSsthresh() << std::endl;
+    std::cout << "TCPConnection1: cwnd = " << tcpConnection1.getCwnd() << ", ssthresh = " << tcpConnection1.getSsthresh() << std::endl;
 }
