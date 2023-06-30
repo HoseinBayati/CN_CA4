@@ -1,7 +1,7 @@
 all: tcpSim.out
 
 tcpSim.out: main.o RenoTCPConnection.o NewRenoTCPConnection.o BBRTCPConnection.o
-	g++  main.o RenoTCPConnection.o NewRenoTCPConnection.o TCPConnection.o -o tcpSim.out
+	g++  main.o RenoTCPConnection.o NewRenoTCPConnection.o BBRTCPConnection.o -o tcpSim.out
 
 main.o: main.cpp RenoTCPConnection.hpp
 	g++ -c main.cpp -o main.o
