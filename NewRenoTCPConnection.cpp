@@ -1,68 +1,61 @@
 #include "NewRenoTCPConnection.hpp"
-
 #include <iostream>
-#include <chrono>
-#include <thread>
 
 NewRenoTCPConnection::NewRenoTCPConnection(int init_cwnd, int init_ssthresh)
 {
     cwnd = init_cwnd;
     ssthresh = init_ssthresh;
     rtt = 0;
-    fastRecoveryMode = false;
-    duplicateAcks = 0;
+    inFastRecovery = false;
+    duplicateAckCount = 0;
 }
 
-int NewRenoTCPConnection::sendData()
+void NewRenoTCPConnection::sendData()
 {
-    int transmission_rate = cwnd;
-
-    std::this_thread::sleep_for(std::chrono::milliseconds(rtt));
-
-    return transmission_rate;
-}
-
-int NewRenoTCPConnection::onPacketLoss()
-{
-    if (fastRecoveryMode)
+    if (inFastRecovery)
     {
-        cwnd = ssthresh / 2;
+        std::cout << "Retransmitting lost packet" << std::endl;
+
+        for (int i = 0; i < cwnd; ++i)
+        {
+            std::cout << "Sending packet " << i << std::endl;
+        }
+    }
+    else if (cwnd < ssthresh)
+    {
+        for (int i = 0; i < cwnd; ++i)
+        {
+            std::cout << "Sending packet " << i << std::endl;
+        }
+        cwnd *= 2;
     }
     else
     {
-        cwnd = 1;
-        ssthresh = cwnd;
+        for (int i = 0; i < cwnd; ++i)
+        {
+            std::cout << "Sending packet " << i << std::endl;
+        }
+        cwnd += 1;
     }
-
-    fastRecoveryMode = true;
-    duplicateAcks = 0;
-
-    return cwnd;
 }
 
-int NewRenoTCPConnection::onRTTUpdate(int new_rtt)
+void NewRenoTCPConnection::onPacketLoss()
+{
+    if (inFastRecovery)
+    {
+        cwnd = ssthresh;
+        inFastRecovery = false;
+    }
+    else
+    {
+        ssthresh = cwnd / 2;
+        cwnd = 1;
+    }
+}
+
+void NewRenoTCPConnection::onRTTUpdate(int new_rtt)
 {
     rtt = new_rtt;
-
-    if (fastRecoveryMode)
-    {
-        cwnd = ssthresh + duplicateAcks;
-        fastRecoveryMode = false;
-        duplicateAcks = 0;
-    }
-    else
-    {
-        if (cwnd < ssthresh)
-        {
-            cwnd *= 2;
-        }
-        else
-        {
-            cwnd += 1;
-        }
-    }
-
-    return cwnd;
 }
 
 int NewRenoTCPConnection::getCwnd()
