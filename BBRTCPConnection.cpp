@@ -14,7 +14,6 @@ int BBRTCPConnection::sendData(int bytes_in_flight)
     int bbr_cwnd = std::min(cwnd, bytes_in_flight + std::max(inflight, btlbw));
 
     inflight += bbr_cwnd;
-    std::this_thread::sleep_for(std::chrono::milliseconds(rtt));
 
     return bbr_cwnd;
 }

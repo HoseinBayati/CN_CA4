@@ -21,15 +21,12 @@ void RenoTCPConnection::sendData()
     {
         cwnd += 1;
     }
-
-    std::this_thread::sleep_for(std::chrono::milliseconds(rtt));
 }
 
 void RenoTCPConnection::onPacketLoss()
 {
     ssthresh = cwnd / 2;
     cwnd = 1;
-    std::this_thread::sleep_for(std::chrono::milliseconds(rtt));
 }
 
 void RenoTCPConnection::onRTTUpdate(int new_rtt)

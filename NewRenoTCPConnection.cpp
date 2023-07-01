@@ -23,8 +23,6 @@ void NewRenoTCPConnection::sendData()
         cwnd += 1;
     }
 
-    std::this_thread::sleep_for(std::chrono::milliseconds(rtt));
-
     bool ackReceived = true;
 
     if (ackReceived)
@@ -50,7 +48,6 @@ void NewRenoTCPConnection::onPacketLoss()
     inFastRecovery = true;
     ssthresh = cwnd / 2;
     cwnd = ssthresh + 3;
-    std::this_thread::sleep_for(std::chrono::milliseconds(rtt));
 }
 
 void NewRenoTCPConnection::onRTTUpdate(int new_rtt)

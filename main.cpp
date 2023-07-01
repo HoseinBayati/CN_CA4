@@ -5,7 +5,7 @@
 #include <iostream>
 #include <chrono>
 
-#define TOTAL_PACKETS_COUNT 100
+#define TOTAL_INFO_SIZE 1000000
 
 #include <iostream>
 
@@ -31,9 +31,9 @@ void testReno(int init_cwnd, int init_ssthresh)
 {
     RenoTCPConnection connection(init_cwnd, init_ssthresh);
 
-    int packets_count = 0;
+    int info_sent = 0;
 
-    while (packets_count < TOTAL_PACKETS_COUNT)
+    while (info_sent < TOTAL_INFO_SIZE)
     {
         double fail_prob = calculatePacketLossProbability(connection.getCwnd(), connection.getSsthresh());
         double random = (double)rand() / RAND_MAX;
@@ -42,7 +42,7 @@ void testReno(int init_cwnd, int init_ssthresh)
 
         if (random > fail_prob)
         {
-            packets_count++;
+            info_sent += connection.getCwnd();
             int old_rtt = connection.getRtt();
             int new_rtt = old_rtt < 50 ? old_rtt + 10 : random > 0.8 ? old_rtt + 10
                                                                      : old_rtt - 10;
@@ -59,9 +59,9 @@ void testNewReno(int init_cwnd, int init_ssthresh)
 {
     NewRenoTCPConnection connection(init_cwnd, init_ssthresh);
 
-    int packets_count = 0;
+    int info_sent = 0;
 
-    while (packets_count < TOTAL_PACKETS_COUNT)
+    while (info_sent < TOTAL_INFO_SIZE)
     {
         double fail_prob = calculatePacketLossProbability(connection.getCwnd(), connection.getSsthresh());
         double random = (double)rand() / RAND_MAX;
@@ -70,7 +70,7 @@ void testNewReno(int init_cwnd, int init_ssthresh)
 
         if (random > fail_prob)
         {
-            packets_count++;
+            info_sent += connection.getCwnd();
             int old_rtt = connection.getRtt();
             int new_rtt = old_rtt < 50 ? old_rtt + 10 : random > 0.8 ? old_rtt + 10
                                                                      : old_rtt - 10;
@@ -87,9 +87,9 @@ void testBBR(int init_cwnd, int init_ssthresh, int inflight, int btlbw)
 {
     BBRTCPConnection connection(init_cwnd, inflight, btlbw);
 
-    int packets_count = 0;
+    int info_sent = 0;
 
-    while (packets_count < TOTAL_PACKETS_COUNT)
+    while (info_sent < TOTAL_INFO_SIZE)
     {
         double fail_prob = calculatePacketLossProbability(connection.getCwnd(), connection.getSsthresh());
         double random = (double)rand() / RAND_MAX;
@@ -99,7 +99,7 @@ void testBBR(int init_cwnd, int init_ssthresh, int inflight, int btlbw)
 
         if (random > fail_prob)
         {
-            packets_count++;
+            info_sent += connection.getCwnd();
             int old_rtt = connection.getRtt();
             int new_rtt = old_rtt < 50 ? old_rtt + 10 : random > 0.8 ? old_rtt + 10
                                                                      : old_rtt - 10;

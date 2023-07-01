@@ -1,0 +1,108 @@
+
+
+
+========================================================
+init_cwnd  = 5
+init_ssthresh  = 2
+inflight = 10
+btlbw = 10
+
+Reno: Time taken = 0.253 ms
+New Reno: Time taken = 0.368 ms
+BBR: Time taken = 0.007 ms
+
+
+
+========================================================
+init_cwnd  = 10
+init_ssthresh  = 4
+inflight = 20
+btlbw = 20
+
+Reno: Time taken = 0.301 ms
+New Reno: Time taken = 0.467 ms
+BBR: Time taken = 0.006 ms
+
+
+
+========================================================
+init_cwnd  = 20
+init_ssthresh  = 8
+inflight = 40
+btlbw = 40
+
+Reno: Time taken = 0.149 ms
+New Reno: Time taken = 0.414 ms
+BBR: Time taken = 0.006 ms
+
+
+
+========================================================
+init_cwnd  = 40
+init_ssthresh  = 16
+inflight = 80
+btlbw = 80
+
+Reno: Time taken = 0.239 ms
+New Reno: Time taken = 0.273 ms
+BBR: Time taken = 0.026 ms
+
+
+
+========================================================
+init_cwnd  = 80
+init_ssthresh  = 32
+inflight = 160
+btlbw = 160
+
+Reno: Time taken = 0.138 ms
+New Reno: Time taken = 0.288 ms
+BBR: Time taken = 0.005 ms
+
+
+
+========================================================
+init_cwnd  = 160
+init_ssthresh  = 64
+inflight = 320
+btlbw = 320
+
+Reno: Time taken = 0.1 ms
+New Reno: Time taken = 0.324 ms
+BBR: Time taken = 0.005 ms
+
+
+
+========================================================
+init_cwnd  = 320
+init_ssthresh  = 128
+inflight = 640
+btlbw = 640
+
+Reno: Time taken = 0.11 ms
+New Reno: Time taken = 0.331 ms
+BBR: Time taken = 0.004 ms
+
+
+
+========================================================
+init_cwnd  = 640
+init_ssthresh  = 256
+inflight = 1280
+btlbw = 1280
+
+Reno: Time taken = 0.107 ms
+New Reno: Time taken = 0.154 ms
+BBR: Time taken = 0.002 ms
+
+
+
+========================================================
+init_cwnd  = 1280
+init_ssthresh  = 512
+inflight = 2560
+btlbw = 2560
+
+Reno: Time taken = 0.043 ms
+New Reno: Time taken = 0.299 ms
+BBR: Time taken = 0.002 ms
