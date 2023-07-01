@@ -5,8 +5,6 @@
 #include <iostream>
 #include <chrono>
 
-#define TOTAL_INFO_SIZE 1000000
-
 #include <iostream>
 
 double calculatePacketLossProbability(int cwnd, int cwndThreshold)
@@ -68,9 +66,9 @@ void testNewReno(int init_cwnd, int init_ssthresh)
 
         connection.sendData();
 
+        info_sent += connection.getCwnd();
         if (random > fail_prob)
         {
-            info_sent += connection.getCwnd();
             int old_rtt = connection.getRtt();
             int new_rtt = old_rtt < 50 ? old_rtt + 10 : random > 0.8 ? old_rtt + 10
                                                                      : old_rtt - 10;
@@ -79,6 +77,7 @@ void testNewReno(int init_cwnd, int init_ssthresh)
         else
         {
             connection.onPacketLoss();
+            info_sent -= ONE_PACKET_SIZE;
         }
     }
 }
@@ -96,6 +95,7 @@ void testBBR(int init_cwnd, int init_ssthresh, int inflight, int btlbw)
         int random2 = rand() % 5;
 
         connection.sendData(random2);
+
 
         if (random > fail_prob)
         {
@@ -119,7 +119,7 @@ int main()
     std::chrono::steady_clock::time_point start_time, end_time;
     double time_taken;
 
-    double base_cwnd = 5, base_ssthresh = 2, base_inflight = 10, base_btlbw = 10;
+    double base_cwnd = 10, base_ssthresh = 20, base_inflight = 100, base_btlbw = 100;
 
     int init_cwnd = base_cwnd;
     int init_ssthresh = base_ssthresh;
