@@ -1,5 +1,9 @@
 #include "BBRTCPConnection.hpp"
 
+#include <iostream>
+#include <chrono>
+#include <thread>
+
 BBRTCPConnection::BBRTCPConnection(int init_cwnd)
     : cwnd(init_cwnd), ssthresh(INT_MAX), rtt(0), minRTT(INT_MAX), btlbw(0), inflight(0)
 {
@@ -10,6 +14,7 @@ int BBRTCPConnection::sendData(int bytes_in_flight)
     int bbr_cwnd = std::min(cwnd, bytes_in_flight + std::max(inflight, btlbw));
 
     inflight += bbr_cwnd;
+    std::this_thread::sleep_for(std::chrono::milliseconds(rtt));
 
     return bbr_cwnd;
 }
@@ -49,4 +54,9 @@ int BBRTCPConnection::getCwnd()
 int BBRTCPConnection::getSsthresh()
 {
     return ssthresh;
+}
+
+int BBRTCPConnection::getRtt()
+{
+    return rtt;
 }

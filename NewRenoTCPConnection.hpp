@@ -10,7 +10,8 @@ public:
 
     int getCwnd();
     int getSsthresh();
-
+    int getRtt();
+    
 private:
     int cwnd;
     int ssthresh;

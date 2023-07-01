@@ -45,3 +45,9 @@ int RenoTCPConnection::getSsthresh()
 {
     return ssthresh;
 }
+
+
+int RenoTCPConnection::getRtt()
+{
+    return rtt;
+}

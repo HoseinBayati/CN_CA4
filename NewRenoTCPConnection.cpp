@@ -14,18 +14,18 @@ void NewRenoTCPConnection::sendData()
 {
     if (inFastRecovery)
     {
-        std::cout << "Retransmitting lost packet" << std::endl;
+        // std::cout << "Retransmitting lost packet" << std::endl;
 
         for (int i = 0; i < cwnd; ++i)
         {
-            std::cout << "Sending packet " << i << std::endl;
+            // std::cout << "Sending packet " << i << std::endl;
         }
     }
     else if (cwnd < ssthresh)
     {
         for (int i = 0; i < cwnd; ++i)
         {
-            std::cout << "Sending packet " << i << std::endl;
+            // std::cout << "Sending packet " << i << std::endl;
         }
         cwnd *= 2;
     }
@@ -33,7 +33,7 @@ void NewRenoTCPConnection::sendData()
     {
         for (int i = 0; i < cwnd; ++i)
         {
-            std::cout << "Sending packet " << i << std::endl;
+            // std::cout << "Sending packet " << i << std::endl;
         }
         cwnd += 1;
     }
@@ -66,4 +66,9 @@ int NewRenoTCPConnection::getCwnd()
 int NewRenoTCPConnection::getSsthresh()
 {
     return ssthresh;
+}
+
+int NewRenoTCPConnection::getRtt()
+{
+    return rtt;
 }
