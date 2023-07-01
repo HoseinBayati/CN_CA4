@@ -11,14 +11,14 @@ date: "Publication date"
 
 # <center style="color: yellow"> **شبکه‌های کامپیوتری** </center><br/>
 
-## <center style="color: yellow"> **تمرین برنامه نویسی شماره ۰۳** </center><br/>
+## <center style="color: yellow"> **تمرین برنامه نویسی شماره ۰4** </center><br/>
 
 ## <center> محمد جلالی : ۸۱۰۱۹۸۵۰۲  &nbsp;&nbsp;   &nbsp;&nbsp;   حسین بیاتی : ۸۱۰۱۹۸۳۶۶ </center>
 ## <center> </center><br/>
 
 <hr style="border-bottom: solid 1px yellow"><br/>
 
-### <center><strong style="color: orange; font-size: 28px;"> الگوریتم‌های مسیریابی در شبکه </strong><br/><span style="color: orange; font-size: 24px;">(Border Gateway - Distance Vector - Link State) </span></center><br/>
+### <center><strong style="color: orange; font-size: 28px;"> پیاده سازی و تحلیل الگوریتمهای کنترل ازدحام </strong><br/><span style="color: orange; font-size: 24px;">(Border Gateway - Distance Vector - Link State) </span></center><br/>
 
 <ul style="list-style-type: none">
     <li>
@@ -36,8 +36,7 @@ date: "Publication date"
                         <image src="./images/make.png" style="width: 100%"/>
                     </li><br/>
                     <li>
-                        با وارد کردن دستور <strong style="color: beige"> main.out/. </strong> برنامه راه اندازی شده و دستورات را می‌پذیرد.
-                        سند <strong style="color: beige"> input.txt/.. </strong> حاوی دستورات مربوطه است و خروجی برنامه در سند <strong style="color: beige"> output.txt/.. </strong> ذخیره می‌شود.
+                        با وارد کردن دستور <strong style="color: beige"> tcpSim.out/. </strong> برنامه راه اندازی شده و سیمولیشن انجام میپذیرد.
                         <br/><br/>
                         <image src="./images/run.png" style="width: 100%"/>
                     </li>
@@ -54,20 +53,30 @@ date: "Publication date"
         </h2>
             <br/>
             <h3>
-                کدهای برنامه در پوشه <strong style="color: beige"> code </strong> هستند و شامل سه کلاس می‌باشند:
+                برنامه شامل سه کلاس می‌باشد که هریک برای پیاده سازی یکی از پرتکل های گفته شده در پروژه هست که در آن کلاس فواعد آن هر پرتکل پیاده سازی شده.:
                 <br/><br/>
                 <ul>
                     <li>
-                        <strong style="color: beige">Command Handler:</strong> &nbsp; این کلاس وظیفه پردازش دستورات ورودی را داراست. اطلاعات متنی وارد شده در خط فرمان، به اطلاعات فهم پذیر برای دیگر بخش‌های برنامه تبدیل شده و به آن‌ها تحویل می‌شود.
+                        <strong style="color: beige">RenoTCPConnection:</strong> &nbsp; این کلاس همان طور که از اسم آن قابل حدس است برای شبیه سازی پرتکل <strong style="color: beige">Reno TCP</strong> به کار گرفته شده است در تابع <strong style="color: beige">main</strong> برنامه از آن نمونه گرفته شده و شبیه سازی آن انجام شده.
                     </li><br/>
                     <li>
-                        <strong style="color: beige">Topology:</strong> &nbsp; وظیفه‌ی نگهداری توپولوژی شبکه و انجام modify و delete با این کلاس است.
+                        <strong style="color: beige">NewRenoTCPConnection:</strong> &nbsp; این کلاس همانند کلاس قبل برای شبیه سازی قواعد مربوط به <strong style="color: beige">New Reno</strong> به کار گرفته شده است و همانند سایر کلاس ها در تابع <strong style="color: beige">main:</strong> نمونه ای از آن ساخته شده است و کارهای شبیه سازی انجام داده شده 
                     </li><br/>
                     <li>
-                        <strong style="color: beige">Dvrp:</strong> &nbsp; با دریافت توپولوژی موجود الگوریتم را روی آن اجرا می‌کند.
+                        <strong style="color: beige">BBRTCPConnection:</strong> &nbsp; همانند کلاس های قبلی برای شبیه سازی پرتکل ساخته شده ولی پرتکلش تفاوت بیشتری با قبلی ها دارد و توسط شرکت گوگل ایجاد شده و افزایش امکانات سخت افزاری کمک شایانی به بهبود عملکرد این پروتکل دارد.
+                    </li><br/>
+                </ul>
+                در فایل  <strong style="color: beige">main.cpp</strong> نیز 5 تابع دارد که برای ایجاد و شبیه سازی به وسیله کلاس های ایجاد شده است.
+                <br/><br/>
+                <ul>
+                    <li>
+                        <strong style="color: beige">calculatePacketLossProbability:</strong> &nbsp; این تابع برای شبیه سازی احتمال از دست رفتن  پنجره بسته استفاده میشود که برای هر پکت یک درصد احتمال از دست رفتن هر بسته در نظز گرفته شده و از آنجا که بسته ها هم سایز فرض شده اشکالی ایجاد نمیکند و بداهتا اگر پنچره بزرگ تر بود این احتمال نیز باید افزایش پیدا کند که به صورت خطی انچام پذیرفته است .
                     </li><br/>
                     <li>
-                        <strong style="color: beige">Lsrp:</strong> &nbsp; با دریافت توپولوژی موجود الگوریتم را روی آن اجرا می‌کند.
+                        <strong style="color: beige">test funcs:</strong> &nbsp; این توابع به منظور کنترل عملکرد شبیه سازی استفاده میشود و با صدا کرد این تابع برای پرتکل مد نظر پنچره آن را ارسال میکند در صورت رخ داد گم شده تابع مربوطه از کلاس مد نظر صدا خواهد شد و اینگونه قواعد پرتکل برای گمشدن بسته ها ارسال موفقیت آمیز آنها اعمال خواهد شد
+                    </li><br/>
+                    <li>
+                        <strong style="color: beige">main:</strong> &nbsp; در این تابع نمونه ای از هر کلاس ایجاد شده و سپس ده مرتبه در حلقه طی خواهیم کرد در هربار عبور از حلقه ما تابع ارسال و کنترل پرتکل مربوط را صدا میکنیم و بدین نحو پرتکل ها را تست میکنیم..
                     </li><br/>
                 </ul>
             </h3>
@@ -82,31 +91,103 @@ date: "Publication date"
             <br/>
             <h3>
                 <ul>
+                     <li>
+                        <strong style="color: beige">کلاس BBRTCPConnection: &nbsp;</strong><br/><br/>
+                        <ul>
+                            <li>
+                                <strong style="color: #80ced6">
+                                    public
+                                </strong> 
+                                <ul>
+                                    <li>
+                                        <strong style="color: pink">
+                                             RenoTCPConnection(int init_cwnd, int init_ssthresh) <span style="color: beige">  </span>
+                                        </strong> &nbsp; 
+                                    </li><br/>
+                                    <li>
+                                        <strong style="color: pink">
+                                            void sendData() <span style="color: beige">  </span>
+                                        </strong> &nbsp; 
+                                    </li><br/>
+                                    <li>
+                                        <strong style="color: pink">
+                                            void onPacketLoss() <span style="color: beige">  </span>
+                                        </strong> &nbsp; 
+                                    </li><br/>
+                                    <li>
+                                        <strong style="color: pink">
+                                           void onRTTUpdate(int new_rtt) <span style="color: beige">  </span>
+                                        </strong> &nbsp; 
+                                    </li><br/>
+                                    <li>
+                                        <strong style="color: pink">
+                                           int getCwnd() <span style="color: beige">  </span>
+                                        </strong> &nbsp; 
+                                    </li><br/>
+                                    <li>
+                                        <strong style="color: pink">
+                                           int getSsthresh() <span style="color: beige">  </span>
+                                        </strong> &nbsp; 
+                                    </li><br/>
+                                    <li>
+                                        <strong style="color: pink">
+                                           int getRtt() <span style="color: beige">  </span>
+                                        </strong> &nbsp; 
+                                    </li><br/>
+                                </ul>
+                            </li><br/>
+                        </ul>
+                    </li><br/>
+                     <li>
+                        <strong style="color: beige">کلاس RenoTCPConnection: &nbsp;</strong><br/><br/>
+                        <ul>
+                            <li>
+                                <strong style="color: #80ced6">
+                                    public
+                                </strong> 
+                                <ul>
+                                    <li>
+                                        <strong style="color: pink">
+                                             RenoTCPConnection(int init_cwnd, int init_ssthresh) <span style="color: beige">  </span>
+                                        </strong> &nbsp; 
+                                    </li><br/>
+                                    <li>
+                                        <strong style="color: pink">
+                                            void sendData() <span style="color: beige">  </span>
+                                        </strong> &nbsp; 
+                                    </li><br/>
+                                    <li>
+                                        <strong style="color: pink">
+                                            void onPacketLoss() <span style="color: beige">  </span>
+                                        </strong> &nbsp; 
+                                    </li><br/>
+                                    <li>
+                                        <strong style="color: pink">
+                                           void onRTTUpdate(int new_rtt) <span style="color: beige">  </span>
+                                        </strong> &nbsp; 
+                                    </li><br/>
+                                    <li>
+                                        <strong style="color: pink">
+                                           int getCwnd() <span style="color: beige">  </span>
+                                        </strong> &nbsp; 
+                                    </li><br/>
+                                    <li>
+                                        <strong style="color: pink">
+                                           int getSsthresh() <span style="color: beige">  </span>
+                                        </strong> &nbsp; 
+                                    </li><br/>
+                                    <li>
+                                        <strong style="color: pink">
+                                           int getRtt() <span style="color: beige">  </span>
+                                        </strong> &nbsp; 
+                                    </li><br/>
+                                </ul>
+                            </li><br/>
+                        </ul>
+                    </li><br/>
                     <li>
-                        <strong style="color: beige">کلاس Command Handler: &nbsp;</strong><br/><br/>
+                        <strong style="color: beige">کلاس NewRenoTCPConnection: &nbsp;</strong><br/><br/>
                         <ul>
-                            <li>
-                                <strong style="color: #80ced6">
-                                    private
-                                </strong> 
-                                <ul>
-                                    <li>
-                                        <strong style="color: pink">
-                                            ()CommandHandler
-                                        </strong> &nbsp; 
-                                    </li><br/>
-                                    <li>
-                                        <strong style="color: pink">
-                                            vector<string> split(string str, char divider) <span style="color: beige"> : </span>
-                                        </strong> &nbsp; 
-                                    </li><br/>
-                                    <li>
-                                        <strong style="color: pink">
-                                            ()void run <span style="color: beige"> : </span>
-                                        </strong> &nbsp; 
-                                    </li><br/>
-                                </ul>
-                            </li><br/>
                             <li>
                                 <strong style="color: #80ced6">
                                     public
@@ -114,229 +195,43 @@ date: "Publication date"
                                 <ul>
                                     <li>
                                         <strong style="color: pink">
-                                            NetworkTopology topology <span style="color: beige"> : </span> 
+                                             RenoTCPConnection(int init_cwnd, int init_ssthresh) <span style="color: beige">  </span>
                                         </strong> &nbsp; 
                                     </li><br/>
-                                </ul> 
-                                <ul>
                                     <li>
                                         <strong style="color: pink">
-                                            int number_of_nodes <span style="color: beige"> : </span> 
+                                            void sendData() <span style="color: beige">  </span>
                                         </strong> &nbsp; 
                                     </li><br/>
-                                </ul> 
-                                <ul>
                                     <li>
                                         <strong style="color: pink">
-                                            void init_topology(vector<string> p) <span style="color: beige"> : </span> 
+                                            void onPacketLoss() <span style="color: beige">  </span>
                                         </strong> &nbsp; 
                                     </li><br/>
-                                </ul> 
-                                <ul>
                                     <li>
                                         <strong style="color: pink">
-                                            int calcualte_number_of_node(vector<string> p) <span style="color: beige"> : </span> 
+                                           void onRTTUpdate(int new_rtt) <span style="color: beige">  </span>
+                                        </strong> &nbsp; 
+                                    </li><br/>
+                                    <li>
+                                        <strong style="color: pink">
+                                           int getCwnd() <span style="color: beige">  </span>
+                                        </strong> &nbsp; 
+                                    </li><br/>
+                                    <li>
+                                        <strong style="color: pink">
+                                           int getSsthresh() <span style="color: beige">  </span>
+                                        </strong> &nbsp; 
+                                    </li><br/>
+                                    <li>
+                                        <strong style="color: pink">
+                                           int getRtt() <span style="color: beige">  </span>
                                         </strong> &nbsp; 
                                     </li><br/>
                                 </ul>
                             </li><br/>
                         </ul>
                     </li><br/>
-                     <li>
-                        <strong style="color: beige">کلاس Topology: &nbsp;</strong><br/><br/>
-                        <ul>
-                            <li>
-                                <strong style="color: #80ced6">
-                                    private
-                                </strong> 
-                                <ul>
-                                    <li>
-                                        <strong style="color: pink">
-                                            NetworkTopology(int _number_of_nodes)
-                                        </strong> &nbsp; 
-                                    </li><br/>
-                                </ul>
-                                <ul>
-                                    <li>
-                                        <strong style="color: pink">
-                                            ()NetworkTopology
-                                        </strong> &nbsp; 
-                                    </li><br/>
-                                </ul>
-                                <ul>
-                                    <li>
-                                        <strong style="color: pink">
-                                            void add_path(int s,int d,int cost) <span style="color: beige"> : </span>
-                                        </strong> &nbsp; 
-                                    </li><br/>
-                                </ul>
-                                <ul>
-                                    <li>
-                                        <strong style="color: pink">
-                                            ()void show <span style="color: beige"> : </span>
-                                        </strong> &nbsp; 
-                                    </li><br/>
-                                </ul>
-                                <ul>
-                                    <li>
-                                        <strong style="color: pink">
-                                            void lsrp(int source) <span style="color: beige"> : </span>
-                                        </strong> &nbsp; 
-                                    </li><br/>
-                                </ul>
-                                <ul>
-                                    <li>
-                                        <strong style="color: pink">
-                                            ()void lsrp <span style="color: beige"> : </span>
-                                        </strong> &nbsp; 
-                                    </li><br/>
-                                </ul>
-                                <ul>
-                                    <li>
-                                        <strong style="color: pink">
-                                            void dvrp(int source) <span style="color: beige"> : </span>
-                                        </strong> &nbsp; 
-                                    </li><br/>
-                                </ul>
-                                <ul>
-                                    <li>
-                                        <strong style="color: pink">
-                                            ()void dvrp <span style="color: beige"> : </span>
-                                        </strong> &nbsp; 
-                                    </li><br/>
-                                </ul>
-                                <ul>
-                                    <li>
-                                        <strong style="color: pink">
-                                            vector<string> split(string str, char divider) <span style="color: beige"> : </span>
-                                        </strong> &nbsp; 
-                                    </li><br/>
-                                </ul>
-                                <ul>
-                                    <li>
-                                        <strong style="color: pink">
-                                            void modify(string change) <span style="color: beige"> : </span>
-                                        </strong> &nbsp; 
-                                    </li><br/>
-                                </ul>
-                                <ul>
-                                    <li>
-                                        <strong style="color: pink">
-                                            void remove(string change) <span style="color: beige"> : </span>
-                                        </strong> &nbsp; 
-                                    </li><br/>
-                                </ul>
-                            </li><br/>
-                            <li>
-                                <strong style="color: #80ced6">
-                                    public
-                                </strong> 
-                                <ul>
-                                    <li>
-                                        <strong style="color: pink">
-                                            vector<vector<int>> adjacencyMatrix <span style="color: beige"> : </span>
-                                        </strong> &nbsp; 
-                                    </li><br/>
-                                    <li>
-                                        <strong style="color: pink">
-                                            int number_of_nodes <span style="color: beige"> : </span>
-                                        </strong> &nbsp; 
-                                    </li><br/>
-                                    <li>
-                                        <strong style="color: pink">
-                                            LSRPProtocol lsrp_protocol <span style="color: beige"> : </span>
-                                        </strong> &nbsp; 
-                                    </li><br/>
-                                    <li>
-                                        <strong style="color: pink">
-                                            DVRPProtocol dvrp_protocol <span style="color: beige"> : </span>
-                                        </strong> &nbsp; 
-                                    </li><br/>
-                                    <li>
-                                        <strong style="color: pink">
-                                            ()vector<vector<int>> get_graph <span style="color: beige"> : </span>
-                                        </strong> &nbsp; 
-                                    </li><br/>
-                                </ul>
-                            </li><br/>
-                        </ul>
-                    </li><br/>
-                     <li>
-                        <strong style="color: beige">کلاس Dvrp: &nbsp;</strong><br/><br/>
-                        <ul>
-                            <li>
-                                <strong style="color: #80ced6">
-                                    private
-                                </strong> 
-                                <ul>
-                                    <li>
-                                        <strong style="color: pink">
-                                            ()DVRPProtocol
-                                        </strong> &nbsp; 
-                                    </li><br/>
-                                    <li>
-                                        <strong style="color: pink">
-                                            void apply_BellmanFord(vector<vector<int>> graph, int V, int E, int src)
-                                        </strong> &nbsp; 
-                                    </li><br/>
-                                </ul>
-                            </li><br/>
-                            <li>
-                                <strong style="color: #80ced6">
-                                    public
-                                </strong> 
-                                <ul>
-                                    <li>
-                                        <strong style="color: pink">
-                                            void print_info(int src, vector<int> parent, int V, int dis[])
-                                        </strong> &nbsp; 
-                                    </li><br/>
-                                </ul>
-                            </li><br/>
-                        </ul>
-                    </li><br/>
-                     <li>
-                        <strong style="color: beige">کلاس Lsrp: &nbsp;</strong><br/><br/>
-                        <ul>
-                            <li>
-                                <strong style="color: #80ced6">
-                                    private
-                                </strong> 
-                                <ul>
-                                    <li>
-                                        <strong style="color: pink">
-                                            ()LSRPProtocol
-                                        </strong> &nbsp; 
-                                    </li><br/>
-                                    <li>
-                                        <strong style="color: pink">
-                                            void perform_lsrp(vector<vector<int>> graph, int src)
-                                        </strong> &nbsp; 
-                                    </li><br/>
-                                </ul>
-                            </li><br/>
-                            <li>
-                                <strong style="color: #80ced6">
-                                    public
-                                </strong> 
-                                <ul>
-                                    <li>
-                                        <strong style="color: pink">
-                                            int minDistance(vector<int> dist, vector<bool> sptSet) <span style="color: beige"> : </span>
-                                        </strong> &nbsp; 
-                                    </li><br/>
-                                    <li>
-                                        <strong style="color: pink">
-                                            void printSolution(vector<int> dist, vector<int> parent, int src) <span style="color: beige"> : </span>
-                                        </strong> &nbsp; 
-                                    </li><br/>
-                                    <li>
-                                        <strong style="color: pink">
-                                            void print_iter(vector<int> dis) <span style="color: beige"> : </span>
-                                        </strong> &nbsp; 
-                                    </li><br/>
-                                </ul>
-                            </li><br/>
                         </ul>
                     </li><br/>
                 </ul>
@@ -351,51 +246,7 @@ date: "Publication date"
         </h2>
             <br/>
             <h3>
-                نتیجه اجرای دو الگوریتم مسیریابی گفته شده بر روی توپولوژی داده شده کنار فایل‌های ارسال موجود است که حال به بررسی آنها می‌پردازیم :<br/><br/>
-                الگوریتم <strong style="color: beige"> Bellman-Ford </strong> برای <strong style="color: beige"> dvrp </strong> و الگوریتم <strong style="color: beige"> Dijkstra </strong> برای <strong style="color: beige"> lsrp </strong> به کار رفته‌اند.<br/><br/>
-                زمان اندازه گیری شده بی در نظر گیری زمان عملیات I/O بوده و پس از پایان الگوریتم به ازای هر گره است.<br/><br/>
-                با توجه به اینکه می‌دانیم الگوریتم <strong style="color: beige"> Dijkstra</strong> عملکرد بهتری از الگوریتم <strong style="color: beige">Bellman-Ford</strong> دارد، باید توقع زمان اجرای کمتری برای این الگوریتم داشته باشیم و این در نتایج مشاهده شدنیست. البته پروتوکول مسیریابی Link-State می‌توانست عملکرد بهتری نیز داشته باشد که در این پیاده سازی از آن صرف نظر شده است.(کدهای روش دیگر موجود است و در صورت نیاز می‌توان با روش دیگر آن‌ها را اجرا نمود)<br/><br/>
-                الگوریتم <strong style="color: beige">Bellman-Ford</strong> امکان تشخیص یال با وزن منفی را نیز دارد و در حالت کلی <strong style="color: beige">جامع‌تر</strong> است. برای همین کمی مرتبه زمانی بیشتری از الگوریتم <strong style="color: beige">Dijkstra</strong> دارد.
-                <br/><br/>
-                    <strong style="color: beige">زمان‌های ثبت شده برای هر حالت :</strong><br/><br/>
-                    <ul>
-                        <li>
-                            <strong style="color: #80ced6">
-                                پیش از حذف یال :
-                            </strong><br/><br/>
-                            <ul>
-                                <li>
-                                    <strong style="color: pink">
-                                        dvrp takes 5873156 ns
-                                    </strong> &nbsp; 
-                                </li><br/>
-                                <li>
-                                    <strong style="color: pink">
-                                        lsrp takes 9983243 ns
-                                    </strong> &nbsp; 
-                                </li><br/>
-                            </ul>
-                        </li><br/>
-                        <li>
-                            <strong style="color: #80ced6">
-                                پس از حذف یال :
-                            </strong><br/><br/>
-                            <ul>
-                                <li>
-                                    <strong style="color: pink">
-                                        dvrp takes 2424435 ns
-                                    </strong> &nbsp; 
-                                </li><br/>
-                            </ul> 
-                            <ul>
-                                <li>
-                                    <strong style="color: pink">
-                                        lsrp takes 6010722 ns
-                                    </strong> &nbsp; 
-                                </li><br/>
-                            </ul> 
-                        </li><br/>
-                    </ul>
+                 نتایج سه شبیه سازی به ما نشان میدهد که تغییرات روی <strong style="color: beige">reno tcp</strong>  موثر بوده و باعث بهبهود آن شده و در واقع پرتکل <strong style="color: beige"> new reno tcp</strong> با استفاده از <strong style="color: beige">selection recovery</strong> عملکرد بهتری دارد با <strong style="color: beige">BBR</strong> باید گفته عملکرد آن وابستگی زیادی به امکانات خط دارد در صورتی که امکانات ما مناسب و قوی باشد این پرتکل از تمام این قدرت تلاش میکند استفاده کند واین تلاش منجر به عملکرد بهتر آن نسبت به سایرین میشود. 
             </h3>
     </li>
 </ul>
