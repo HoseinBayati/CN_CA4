@@ -11,12 +11,11 @@ public:
     int getCwnd();
     int getSsthresh();
     int getRtt();
-    
+
 private:
     int cwnd;
     int ssthresh;
     int rtt;
-    int mode;
     bool inFastRecovery;
     int duplicateAckCount;
 };

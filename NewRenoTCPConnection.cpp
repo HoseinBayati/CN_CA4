@@ -1,61 +1,69 @@
 #include "NewRenoTCPConnection.hpp"
-#include <iostream>
+
+#include <chrono>
+#include <thread>
 
 NewRenoTCPConnection::NewRenoTCPConnection(int init_cwnd, int init_ssthresh)
+    : cwnd(init_cwnd), ssthresh(init_ssthresh), rtt(100), inFastRecovery(false), duplicateAckCount(0)
 {
-    cwnd = init_cwnd;
-    ssthresh = init_ssthresh;
-    rtt = 0;
-    inFastRecovery = false;
-    duplicateAckCount = 0;
 }
 
 void NewRenoTCPConnection::sendData()
 {
-    if (inFastRecovery)
+    if (!inFastRecovery)
     {
-        // std::cout << "Retransmitting lost packet" << std::endl;
-
-        for (int i = 0; i < cwnd; ++i)
+        cwnd++;
+        if (cwnd >= ssthresh)
         {
-            // std::cout << "Sending packet " << i << std::endl;
+            inFastRecovery = false;
         }
-    }
-    else if (cwnd < ssthresh)
-    {
-        for (int i = 0; i < cwnd; ++i)
-        {
-            // std::cout << "Sending packet " << i << std::endl;
-        }
-        cwnd *= 2;
     }
     else
     {
-        for (int i = 0; i < cwnd; ++i)
-        {
-            // std::cout << "Sending packet " << i << std::endl;
-        }
         cwnd += 1;
+    }
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(rtt));
+
+    bool ackReceived = true;
+
+    if (ackReceived)
+    {
+        if (!inFastRecovery)
+        {
+            duplicateAckCount = 0;
+            cwnd += 1;
+        }
+        else
+        {
+            duplicateAckCount++;
+            if (duplicateAckCount == 3)
+            {
+                onPacketLoss();
+            }
+        }
     }
 }
 
 void NewRenoTCPConnection::onPacketLoss()
 {
-    if (inFastRecovery)
-    {
-        cwnd = ssthresh;
-        inFastRecovery = false;
-    }
-    else
-    {
-        ssthresh = cwnd / 2;
-        cwnd = 1;
-    }
+    inFastRecovery = true;
+    ssthresh = cwnd / 2;
+    cwnd = ssthresh + 3;
+    std::this_thread::sleep_for(std::chrono::milliseconds(rtt));
 }
 
 void NewRenoTCPConnection::onRTTUpdate(int new_rtt)
 {
-    rtt = new_rtt;
+    if (rtt == 0)
+    {
+        rtt = new_rtt;
+    }
+    else
+    {
+        const double alpha = 0.125;
+        rtt = alpha * new_rtt + (1 - alpha) * rtt;
+    }
 }
 
 int NewRenoTCPConnection::getCwnd()

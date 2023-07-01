@@ -4,8 +4,8 @@
 #include <chrono>
 #include <thread>
 
-BBRTCPConnection::BBRTCPConnection(int init_cwnd)
-    : cwnd(init_cwnd), ssthresh(INT_MAX), rtt(0), minRTT(INT_MAX), btlbw(0), inflight(0)
+BBRTCPConnection::BBRTCPConnection(int init_cwnd, int inflight, int btlbw)
+    : cwnd(init_cwnd), ssthresh(INT_MAX), rtt(100), minRTT(INT_MAX), btlbw(btlbw), inflight(inflight)
 {
 }
 
@@ -24,7 +24,6 @@ int BBRTCPConnection::onPacketLoss()
     ssthresh = std::max(cwnd / 2, 4);
     cwnd = ssthresh;
     inflight = 0;
-
     return cwnd;
 }
 

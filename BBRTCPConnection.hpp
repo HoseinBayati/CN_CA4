@@ -4,7 +4,7 @@
 class BBRTCPConnection
 {
 public:
-    BBRTCPConnection(int init_cwnd);
+    BBRTCPConnection(int init_cwnd, int inflight, int btlbw);
     int sendData(int bytes_in_flight);
     int onPacketLoss();
     int onRTTUpdate(int new_rtt, int new_btlbw);
@@ -21,4 +21,3 @@ private:
     int btlbw;
     int inflight;
 };
-
